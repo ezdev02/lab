@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<protocol-definition>    
+
+    <cmpp>
+        <!--
+            STANDARD: standard CMPP protocol.
+            SMIAS:    SMIAS protocol is model after CMPP.
+        -->    
+        <protocol_variation>STANDARD</protocol_variation>
+
+        <!-- The version used in CONNECT message.
+        -->
+        <version>0x20</version>
+        
+        <timeout>30</timeout>
+        
+        <idle>30</idle>
+           
+        <!-- 
+            TX: message will be sent from SP to IMSG only.
+            RX: message will be sent from IMSG to SP only.
+            TX+RX: message will be sent between IMSG and SP via TWO socket channels. 
+        -->
+        <bind_type>TX+RX</bind_type>
+
+        <!-- 
+            The following value is allowed for apply to:
+                * TX: TX bind or TX of TX+RX bind.
+                * RX: RX bind or RX of TX+RX bind.
+        -->
+        <socket_address applyto="TX;RX">
+            <host>122.112.238.189</host>
+            <port>7890</port>
+        </socket_address>
+        
+        <!-- 
+            corresponding to "SP_Code" in CMPP.
+            Used in CMPP_SUBMIT.
+        -->
+        <tpda>03917</tpda>
+        
+        <!-- SP's Enterprise ID.
+            corresponding to "SP_Id" in CMPP.
+            Used in .
+        --> 
+        <spid>923122</spid>
+
+        <!-- The service type, e.g. TPCQ. 
+            Corresponding to  "Service_Id" in CMPP_SUBMIT 
+        -->
+        <service_id>slbota</service_id>
+            
+        <!-- 
+            Authenticator Source Address, Normally it will be the same as spid. 
+            But some implementation use a different one, so it's here.
+            Used in "Source_Addr" in CMPP_CONNECT.
+        -->
+        <authenticator_sa>923122</authenticator_sa>
+
+        <!-- corresponding to "Shared Secret" in CMPP_CONNECT -->
+        <shared_secret>03817</shared_secret>
+        
+        <!-- SMIAS Specific Field -->
+        <fee_user_type>0x0</fee_user_type>
+        <fee_user>915169</fee_user>
+        <!-- End SMIAS Specific Field -->
+        
+        <test_account>13923839884</test_account>
+    </cmpp>
+
+    
+</protocol-definition>

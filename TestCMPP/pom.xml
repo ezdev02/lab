@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>rocks.jkj</groupId>
+	<artifactId>TestCMPP</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<inceptionYear>2017</inceptionYear>
+	<url>http://lab.jkj.rocks/</url>
+	<licenses>
+		<license>
+			<name>Eclipse Public License</name>
+			<url>http://www.eclipse.org/legal/epl-v10.html</url>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>Jira</system>
+		<url>http://links.sonatype.com/products/nexus/oss/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>https://bamboo.zion.sonatype.com/browse/NX-OSS</url>
+	</ciManagement>
+	<scm>
+		<connection>scm:git:git://github.com/ttron/onme.git</connection>
+		<developerConnection>scm:git:git@github.com:sonatype-oss/nexus.git</developerConnection>
+		<url>https://github.com/ttron/onme</url>
+	</scm>
+	<repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>tsst-releases</id>
+			<name>Tsst Internal Releases</name>
+			<url>http://maven.tsst.cc/nexus/content/groups/tsst/</url>
+		</repository>
+		<repository>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>tsst-snapshots</id>
+			<name>Tsst Snapshots Repository</name>
+			<url>http://maven.tsst.cc/nexus/content/repositories/tsst-snapshots/</url>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>tsst-releases</id>
+			<name>Tsst Internal Releases</name>
+			<url>http://maven.tsst.cc/nexus/content/repositories/tsst-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>tsst-snapshots</id>
+			<name>Tsst Snapshots Repository</name>
+			<url>http://maven.tsst.cc/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tsst-releases</id>
+			<name>Tsst Internal Releases</name>
+			<url>http://maven.tsst.cc/nexus/content/groups/tsst/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMdd_HHmm</maven.build.timestamp.format>
+		<test.log.level>INFO</test.log.level>
+		<test.log.pattern>%date %level [%thread%X{DC}] %logger - %msg%n</test.log.pattern>
+		<it.test.log.level>INFO</it.test.log.level>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<eclipse-jetty.version>9.3.6.v20151106</eclipse-jetty.version>
+		<!-- <osgi-spec.version>6.0.0</osgi-spec.version> -->
+		<osgi-spec.version>5.0.0</osgi-spec.version>
+		<log4j.version>2.5</log4j.version>
+		<slf4j.version>1.7.12</slf4j.version>
+		<logback.version>1.1.2</logback.version>
+		<yammer-metrics.version>2.2.0</yammer-metrics.version>
+		<google.guice.version>4.0</google.guice.version>
+		<hk2.version>2.5.0-b54</hk2.version>
+		<jersey.version>2.26</jersey.version>
+		<felix.version>5.0.1</felix.version>
+		<httpclient.version>4.5.4</httpclient.version>
+		<httpcore.version>4.4.8</httpcore.version>
+		<tomcat.version>8.5.12</tomcat.version>
+		<mariadb.version>2.1.1</mariadb.version>
+		<jedis.version>2.9.0</jedis.version>
+		<json.version>20170516</json.version>
+		<jackson.version>2.9.1</jackson.version>
+		<protocol.version>1.1.6</protocol.version>
+	</properties>
+	<modules>
+		<module>components</module>
+    <module>TestCMPP</module>
+  </modules>
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.moxy</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.core</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
+			<artifactId>jersey-guava</artifactId>
+			<!-- <version>${jersey.version}</version> -->
+			<version>2.25.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>rocks.jkj</groupId>
+			<artifactId>acl</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>rocks.jkj</groupId>
+			<artifactId>marionette</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>rocks.jkj</groupId>
+			<artifactId>metadata</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>rocks.jkj</groupId>
+			<artifactId>turing</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>rocks.jkj</groupId>
+			<artifactId>level-0</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.alipay</groupId> -->
+		<!-- <artifactId>api</artifactId> -->
+		<!-- <version>20180122110032</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.persistence</groupId> -->
+		<!-- <artifactId>javax.persistence</artifactId> -->
+		<!-- <version>2.1.1</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>alcedo</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>parrot</artifactId>
+			<version>1.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>parrot-util</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>salmon</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.protocol</groupId>
+			<artifactId>ziyoukuaiche</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.connectors</groupId>
+			<artifactId>jersey-apache-connector</artifactId>
+			<version>${jersey.version}</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.media</groupId> -->
+		<!-- <artifactId>jersey-media-multipart</artifactId> -->
+		<!-- <version>${jersey.version}</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.httpcomponents</groupId> -->
+		<!-- <artifactId>httpcore</artifactId> -->
+		<!-- <version>4.4.3</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>cn.ttron</groupId>
+			<artifactId>metadata</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>pipeline</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>whale</artifactId>
+			<version>1.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-jdbc</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.protocol</groupId>
+			<artifactId>carscop.classic</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.protocol</groupId>
+			<artifactId>gimis.five</artifactId>
+			<version>1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>tomcat-util</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>osgi-bootstrap</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ttron.lab.quattroporte</groupId>
+			<artifactId>oauth-runtime</artifactId>
+			<version>2.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.hbase</groupId> -->
+		<!-- <artifactId>hbase-client</artifactId> -->
+		<!-- <version>1.1.2</version> -->
+		<!-- <scope>compile</scope> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>*</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>log4j</groupId> -->
+		<!-- <artifactId>*</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>javax.xml.stream</groupId> -->
+		<!-- <artifactId>stax-api</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>javax.xml.bind</groupId> -->
+		<!-- <artifactId>jaxb-api</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>${mariadb.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+		</dependency>
+		<dependency>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.tomcat</groupId> -->
+		<!-- <artifactId>tomcat-juli</artifactId> -->
+		<!-- <version>8.0.26</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse</groupId> -->
+		<!-- <artifactId>osgi</artifactId> -->
+		<!-- <version>3.10.0-v20140606-1445</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>cn.ttron</groupId>
+			<artifactId>protocol</artifactId>
+			<version>${protocol.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cc.tsst.onme</groupId>
+			<artifactId>gis</artifactId>
+			<version>1.3.0</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jul</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.logging.log4j</groupId> -->
+		<!-- <artifactId>log4j-jcl</artifactId> -->
+		<!-- <version>${log4j.version}</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.osgi</groupId> -->
+		<!-- <artifactId>org.osgi.core</artifactId> -->
+		<!-- <version>${osgi-spec.version}</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.prefs</artifactId>
+			<version>1.0.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.osgi.core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.osgi.compendium</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>${felix.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.shell</artifactId>
+			<version>0.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.command</artifactId>
+			<version>0.14.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.osgi</groupId>
+					<artifactId>org.osgi.core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.osgi</groupId>
+					<artifactId>org.osgi.compendium</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.osgi</groupId>
+			<artifactId>jetty-osgi-boot</artifactId>
+			<version>${eclipse-jetty.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-security</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-deploy</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-http</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-io</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-xml</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jmx</artifactId>
+			<version>${eclipse-jetty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.ext</groupId> -->
+		<!-- <artifactId>jersey-entity-filtering</artifactId> -->
+		<!-- <version>${jersey.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.media</groupId> -->
+		<!-- <artifactId>jersey-media-moxy</artifactId> -->
+		<!-- <version>${jersey.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.media</groupId> -->
+		<!-- <artifactId>jersey-media-json-jackson</artifactId> -->
+		<!-- <version>${jersey.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.hk2</groupId> -->
+		<!-- <artifactId>osgi-resource-locator</artifactId> -->
+		<!-- <version>2.5.0-b42</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish</groupId> -->
+		<!-- <artifactId>javax.json</artifactId> -->
+		<!-- <version>1.1</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.codehaus.plexus</groupId> -->
+		<!-- <artifactId>plexus-interpolation</artifactId> -->
+		<!-- <version>1.16</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.core</groupId> -->
+		<!-- <artifactId>jackson-annotations</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.core</groupId> -->
+		<!-- <artifactId>jackson-databind</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.core</groupId> -->
+		<!-- <artifactId>jackson-core</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.jaxrs</groupId> -->
+		<!-- <artifactId>jackson-jaxrs-json-provider</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.jaxrs</groupId> -->
+		<!-- <artifactId>jackson-jaxrs-base</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.jaxrs</groupId> -->
+		<!-- <artifactId>jackson-jaxrs-xml-provider</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.module</groupId> -->
+		<!-- <artifactId>jackson-module-jaxb-annotations</artifactId> -->
+		<!-- <version>${jackson.version}</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${maven.compiler.source}</source>
+						<target>${maven.compiler.target}</target>
+					</configuration>
+				</plugin>
+				<!-- Turn off strict javadoc checks in Java8. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<additionalparam>-Xdoclint:none</additionalparam>
+					</configuration>
+				</plugin>
+				<!-- Additional configuration for release; enable additional profiles. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<configuration>
+						<releaseProfiles>release,optimize</releaseProfiles>
+					</configuration>
+				</plugin>
+				<!-- Basic unit-test environment configuration. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<forkMode>once</forkMode>
+						<argLine> -Xmx300m -XX:MaxPermSize=192m
+							-XX:+HeapDumpOnOutOfMemoryError
+							-XX:HeapDumpPath=${project.build.directory}/surefire-reports
+						</argLine>
+						<excludes>
+							<exclude>**/Abstract*</exclude>
+							<exclude>**/*$*</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>enforce-environment</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<fail>true</fail>
+							<rules>
+								<!-- Require Maven 3.0.4+, but not Maven 3.1+ -->
+								<requireMavenVersion>
+									<version>[3.0.4,3.1)</version>
+								</requireMavenVersion>
+								<!-- Require Java 7+ -->
+								<requireJavaVersion>
+									<version>[1.7,)</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</execution>
+					<execution>
+						<id>enforce-dependencies</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<fail>true</fail>
+							<rules>
+								<bannedDependencies>
+									<searchTransitive>true</searchTransitive>
+									<excludes>
+										<!-- Velocity 1.4 is banned, org.apache.velocity:velocity should 
+											be used instead. -->
+										<!-- <exclude>org.apache.hbase:*</exclude> -->
+										<exclude>velocity:velocity</exclude>
+										<exclude>velocity:velocity-dep</exclude>
+										<!-- Conflicts with slf4j. -->
+										<!-- <exclude>commons-logging:*</exclude> -->
+										<!-- Security hazard: osvdb-58760 -->
+										<exclude>commons-vfs:commons-vfs</exclude>
+										<!-- Ban beanutils which includes commons-collections. -->
+										<!-- <exclude>commons-beanutils:commons-beanutils</exclude> -->
+										<!-- Security hazard: osvdb-68314 -->
+										<exclude>xmlrpc:*</exclude>
+										<!-- Require use of sisu plexus integration. -->
+										<exclude>*:plexus-container-default</exclude>
+										<exclude>*:plexus-component-api</exclude>
+										<!-- Ban old versions of apache shiro. -->
+										<exclude>*:jsecurity</exclude>
+										<!-- Ban apis which are part of Java 6. -->
+										<exclude>*:activation</exclude>
+										<exclude>*:stax-api</exclude>
+										<exclude>*:jaxb-api</exclude>
+										<!-- <exclude>*:xml-apis</exclude> -->
+										<!-- Ban junit which includes old, or improper hamcrest. -->
+										<!-- <exclude>junit:junit:(,4.10]</exclude> -->
+										<exclude>junit:junit-dep</exclude>
+										<!-- Ban old servlet apis. -->
+										<exclude>javax.servlet:servlet-api</exclude>
+										<exclude>org.mortbay.jetty:servlet-api</exclude>
+										<exclude>org.mortbay.jetty:servlet-api-2.5</exclude>
+										<!-- Ban uber mockito. -->
+										<exclude>org.mockito:mockito-all</exclude>
+										<!-- Ban hamcrest so we can require compatible version (see includes). -->
+										<exclude>org.hamcrest:*</exclude>
+										<!-- Ban uber hamcrest. -->
+										<exclude>org.hamcrest:hamcrest-all:*</exclude>
+										<exclude>log4j:slf4j-api</exclude>
+										<!-- <exclude>org.slf4j:*</exclude> -->
+										<!-- Ban old jetty. FIXME: nexus-restlet-bridge tests depend on 
+											this, we can not exclude/ban it ATM. -->
+										<!--<exclude>org.mortbay.jetty:*</exclude> -->
+										<!-- Ban old bouncycastle. -->
+										<exclude>org.bouncycastle:*-jdk14:*</exclude>
+										<exclude>org.bouncycastle:*-jdk15:*</exclude>
+										<exclude>bouncycastle:*-jdk14:*</exclude>
+										<exclude>bouncycastle:*-jdk15:*</exclude>
+									</excludes>
+									<!-- Exceptions to excludes. -->
+									<includes>
+										<!-- Allow hamcrest 1.3 -->
+										<include>org.hamcrest:*:1.3</include>
+									</includes>
+								</bannedDependencies>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
